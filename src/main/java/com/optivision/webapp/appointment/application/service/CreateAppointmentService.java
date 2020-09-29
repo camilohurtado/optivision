@@ -16,8 +16,8 @@ public class CreateAppointmentService implements CreateAppointmentUseCase<Appoin
     @Override
     public AppointmentDTO registerAppointment(AppointmentDTO dto) {
 
-        queryData.getAllOcurrences().stream()
-                .
+        //queryData.getAllOcurrences().stream()
+          //      .
 
 
         Appointment response = queryData.save(dto.toEntity());
