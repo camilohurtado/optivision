@@ -1,6 +1,7 @@
 package com.optivision.webapp.sales.dto;
 
 import com.optivision.webapp.sales.entity.SaleItemEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class SaleItem {
     private long productId;
     private String name;

@@ -2,6 +2,7 @@ package com.optivision.webapp.sales.dto;
 
 import com.optivision.webapp.sales.entity.SaleEntity;
 import com.optivision.webapp.sales.entity.SaleItemEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Sale {
     private long id;
