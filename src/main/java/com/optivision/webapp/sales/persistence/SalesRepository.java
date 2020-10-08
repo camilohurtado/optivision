@@ -13,5 +13,5 @@ public interface SalesRepository extends JpaRepository<SaleEntity, Long> {
 
     public List<SaleEntity> getAllByFechaCreacionIs(LocalDate specificDate);
     public SaleEntity getByEstadoVentaIs(String estadoVenta);
-    public List<SaleEntity> getAllByFechaCreacionIn(LocalDate initialDate, LocalDate endDate);
+    public List<SaleEntity> getAllByFechaCreacionIs(LocalDate initialDate, LocalDate endDate);
 }
