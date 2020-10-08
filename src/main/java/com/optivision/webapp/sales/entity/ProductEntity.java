@@ -1,4 +1,4 @@
-package com.optivision.webapp.entity;
+package com.optivision.webapp.sales.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
