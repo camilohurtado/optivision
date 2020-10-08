@@ -14,10 +14,10 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "VENTA")
-public class Venta {
-    @Id
+public class SaleEntity {
+    @Id @GeneratedValue
     @Column(name = "ID_VENTA")
-    private String idVenta;
+    private Long idVenta;
 
     @Column(name = "TIPO_VENTA")
     private String tipoVenta;
@@ -48,4 +48,10 @@ public class Venta {
 
     @Column(name = "USUARIO_ACTUALIZACION")
     private String usuarioActualizacion;
+
+    @OneToMany(mappedBy = "sale",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<SaleItemEntity> items;
 }

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "PRODUCTO")
-public class Producto {
+public class ProductEntity {
     @Id
     @Column(name = "PRODUCTO_ID")
     private String productoId;

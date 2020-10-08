@@ -1,26 +1,29 @@
 package com.optivision.webapp.sales.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
-@Table(name = "PRODUCTOS_X_VENTA")
-public class ProductosXVenta {
-    @Id
-    private String id;
+@Table(name = "ITEM_VENTA")
+public class SaleItemEntity {
+    @Id @GeneratedValue
+    @Column(name = "ID_ITEM_VENTA")
+    private Long id;
 
     @Column(name = "ID_VENTA")
-    private String idVenta;
+    private Long idVenta;
 
     @Column(name = "ID_PRODUCTO")
-    private String idProducto;
+    private Long idProducto;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private SaleEntity sale;
 }
