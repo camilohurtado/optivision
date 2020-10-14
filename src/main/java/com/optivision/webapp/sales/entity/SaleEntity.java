@@ -1,5 +1,6 @@
 package com.optivision.webapp.sales.entity;
 
+import com.optivision.webapp.sales.dto.Sale;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -54,4 +55,17 @@ public class SaleEntity {
             orphanRemoval = true
     )
     private List<SaleItemEntity> items;
+
+    public Sale toDto(){
+        return Sale.builder()
+                .creationDate(this.fechaCreacion.toLocalDate())
+                .id(this.idVenta)
+                .paid(this.abono)
+                .pending(this.saldo)
+                .total(this.precioVenta)
+                .stateDesc(this.estadoVenta)
+                .patientName(this.pacienteId)
+                .type(this.tipoVenta)
+                .build();
+    }
 }
