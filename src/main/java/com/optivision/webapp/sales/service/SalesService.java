@@ -5,10 +5,14 @@ import com.optivision.webapp.sales.entity.SaleEntity;
 import com.optivision.webapp.sales.exception.InvalidSaleDataException;
 import com.optivision.webapp.sales.persistence.SalesRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Service
 @RequiredArgsConstructor
 public class SalesService {
 
@@ -24,10 +28,10 @@ public class SalesService {
      *
      * @param sale - Sale
      */
-    public SaleEntity doSale(Sale sale) throws InvalidSaleDataException {
+    public Sale doSale(Sale sale) throws InvalidSaleDataException {
         if(sale != null){
             SaleEntity toSave = sale.toEntity();
-            return salesRepository.save(toSave);
+            return salesRepository.save(toSave).toDto();
         }else{
             throw new InvalidSaleDataException("Sale data should not be null");
         }
@@ -39,7 +43,10 @@ public class SalesService {
      * @param date
      * @return
      */
-    public List<SaleEntity> getSalesByDate(LocalDate date){
-        return salesRepository.getAllByFechaCreacionIs(date);
+    public List<Sale> getSalesByDate(LocalDate date){
+        return salesRepository.getAllByFechaCreacionIs(Date.valueOf(date))
+                .stream()
+                .map(saleEntity -> saleEntity.toDto())
+                .collect(Collectors.toList());
     }
 }
