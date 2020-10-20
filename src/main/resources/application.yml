@@ -7,3 +7,10 @@ spring:
     url: "jdbc:postgresql://localhost:5432/optivision"
     username: postgres
     password: admin
+  liquibase:
+    change-log: classpath:/db/changelog/dbchangelog-master.yaml
+    enabled: true
+    url: "jdbc:postgresql://localhost:5432/optivision"
+    user: postgres
+    password: admin
+    default-schema: opt
