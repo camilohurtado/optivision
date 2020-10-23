@@ -1,9 +1,9 @@
-package com.optivision.webapp.appointment.service;
+package com.optivision.webapp.cita.service;
 
-import com.optivision.webapp.appointment.entity.Appointment;
-import com.optivision.webapp.appointment.dto.AppointmentDTO;
-import com.optivision.webapp.appointment.exception.CollidingAppointmentHoursException;
-import com.optivision.webapp.appointment.persistence.AppointmentRepository;
+import com.optivision.webapp.cita.entity.Appointment;
+import com.optivision.webapp.cita.dto.AppointmentDTO;
+import com.optivision.webapp.cita.exception.CollidingAppointmentHoursException;
+import com.optivision.webapp.cita.persistence.AppointmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

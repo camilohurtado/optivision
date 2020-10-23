@@ -1,7 +1,7 @@
-package com.optivision.webapp.appointment.dto;
+package com.optivision.webapp.cita.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.optivision.webapp.appointment.entity.Appointment;
+import com.optivision.webapp.cita.entity.Appointment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

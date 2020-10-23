@@ -1,11 +1,10 @@
-package com.optivision.webapp.sales.persistence;
+package com.optivision.webapp.venta.persistence;
 
 
-import com.optivision.webapp.sales.entity.SaleEntity;
+import com.optivision.webapp.venta.entity.SaleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 

@@ -1,9 +1,6 @@
-package com.optivision.webapp.sales.exception;
+package com.optivision.webapp.venta.exception;
 
 import lombok.NoArgsConstructor;
-import net.bytebuddy.asm.Advice;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 @NoArgsConstructor
 public class InvalidSaleDataException extends RuntimeException{

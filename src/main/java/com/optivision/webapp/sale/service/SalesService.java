@@ -1,9 +1,9 @@
-package com.optivision.webapp.sales.service;
+package com.optivision.webapp.venta.service;
 
-import com.optivision.webapp.sales.dto.Sale;
-import com.optivision.webapp.sales.entity.SaleEntity;
-import com.optivision.webapp.sales.exception.InvalidSaleDataException;
-import com.optivision.webapp.sales.persistence.SalesRepository;
+import com.optivision.webapp.venta.dto.Sale;
+import com.optivision.webapp.venta.entity.SaleEntity;
+import com.optivision.webapp.venta.exception.InvalidSaleDataException;
+import com.optivision.webapp.venta.persistence.SalesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

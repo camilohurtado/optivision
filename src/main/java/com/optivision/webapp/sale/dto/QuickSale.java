@@ -1,4 +1,4 @@
-package com.optivision.webapp.sales.dto;
+package com.optivision.webapp.venta.dto;
 
 import java.util.List;
 
