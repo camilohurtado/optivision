@@ -1,6 +1,6 @@
-package com.optivision.webapp.venta.entity;
+package com.optivision.webapp.sale.entity;
 
-import com.optivision.webapp.venta.dto.Sale;
+import com.optivision.webapp.sale.dto.Sale;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

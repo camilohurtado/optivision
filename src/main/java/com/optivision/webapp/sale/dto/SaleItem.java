@@ -1,8 +1,8 @@
-package com.optivision.webapp.venta.dto;
+package com.optivision.webapp.sale.dto;
 
 import com.optivision.webapp.product.dto.Product;
 import com.optivision.webapp.product.enumerator.ProductType;
-import com.optivision.webapp.venta.entity.SaleItemEntity;
+import com.optivision.webapp.sale.entity.SaleItemEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,7 +37,7 @@ public class SaleItem {
 
     public SaleItemEntity toEntity(){
         return SaleItemEntity.builder()
-                .idProducto(this.productId)
+                .idProducto(this.product.getProductoId())
                 .build();
     }
 }

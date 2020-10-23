@@ -1,7 +1,8 @@
-package com.optivision.webapp.venta.dto;
+package com.optivision.webapp.sale.dto;
 
-import com.optivision.webapp.venta.entity.SaleEntity;
-import com.optivision.webapp.venta.entity.SaleItemEntity;
+import com.optivision.webapp.sale.entity.SaleEntity;
+import com.optivision.webapp.sale.entity.SaleItemEntity;
+import com.optivision.webapp.sale.enumerator.GeneralSaleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +21,6 @@ import java.util.stream.Collectors;
 public class Sale {
     private long id;
     private String type; //ENUM
-    //private List<SaleItem> items;
     private Collection<SaleItem> items;
     private double total;
     private double paid;
@@ -35,7 +35,7 @@ public class Sale {
      */
     public void calculateTotal(){
         this.total = this.items.stream()
-                .mapToDouble(value -> value.getPrice() + (value.getPrice() * 0.19))
+                .mapToDouble(value -> value.getPrice() + (value.getPrice() * GeneralSaleEnum.IVA.getIva()))
                 .sum();
     }
 
