@@ -1,6 +1,6 @@
-package com.optivision.webapp.cita.entity;
+package com.optivision.webapp.appointment.entity;
 
-import com.optivision.webapp.cita.dto.AppointmentDTO;
+import com.optivision.webapp.appointment.dto.AppointmentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

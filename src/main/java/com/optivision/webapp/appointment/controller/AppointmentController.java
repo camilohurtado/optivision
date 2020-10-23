@@ -1,7 +1,7 @@
-package com.optivision.webapp.cita.controller;
+package com.optivision.webapp.appointment.controller;
 
-import com.optivision.webapp.cita.dto.AppointmentDTO;
-import com.optivision.webapp.cita.service.AppointmentService;
+import com.optivision.webapp.appointment.dto.AppointmentDTO;
+import com.optivision.webapp.appointment.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

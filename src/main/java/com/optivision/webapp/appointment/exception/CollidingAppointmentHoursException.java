@@ -1,4 +1,4 @@
-package com.optivision.webapp.cita.exception;
+package com.optivision.webapp.appointment.exception;
 
 public class CollidingAppointmentHoursException extends Exception{
 
