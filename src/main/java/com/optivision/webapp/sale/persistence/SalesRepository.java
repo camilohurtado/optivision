@@ -1,7 +1,7 @@
-package com.optivision.webapp.venta.persistence;
+package com.optivision.webapp.sale.persistence;
 
 
-import com.optivision.webapp.venta.entity.SaleEntity;
+import com.optivision.webapp.sale.entity.SaleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

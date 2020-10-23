@@ -1,4 +1,4 @@
-package com.optivision.webapp.venta.exception;
+package com.optivision.webapp.sale.exception;
 
 import lombok.NoArgsConstructor;
 
