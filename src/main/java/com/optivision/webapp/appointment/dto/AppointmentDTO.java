@@ -2,8 +2,10 @@ package com.optivision.webapp.appointment.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.optivision.webapp.appointment.entity.Appointment;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +14,8 @@ import java.time.LocalTime;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AppointmentDTO {
 
     @NotNull
@@ -22,7 +26,7 @@ public class AppointmentDTO {
     private LocalDate fechaCreacion;
     private LocalDate fechaModificacion;
     @NotNull
-    @JsonFormat(pattern="hh:mm")
+    @JsonFormat(pattern="HH:mm")
     private LocalTime horaCita;
     @NotNull
     private String paciente;

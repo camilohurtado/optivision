@@ -1,17 +1,24 @@
-package com.optivision.webapp.sales.dto;
+package com.optivision.webapp.sale.dto;
 
-import com.optivision.webapp.sales.entity.SaleItemEntity;
+import com.optivision.webapp.product.dto.Product;
+import com.optivision.webapp.product.enumerator.ProductType;
+import com.optivision.webapp.sale.entity.SaleItemEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class SaleItem {
-    private long productId;
+    private long saleId;
+    private Product product;
     private String name;
-    private String type; //ENUM
+    private ProductType type; //ENUM
     private String desc;
     private double price;
     private int actualQuantity;
@@ -19,6 +26,7 @@ public class SaleItem {
     private String reference;
     private String make;
     private Sale sale;
+    List<Product> products;
 
     public boolean verifyExistence(){
         if(this.actualQuantity > minimumQuantity + 3){
@@ -29,7 +37,7 @@ public class SaleItem {
 
     public SaleItemEntity toEntity(){
         return SaleItemEntity.builder()
-                .idProducto(this.productId)
+                .idProducto(this.product.getProductoId())
                 .build();
     }
 }

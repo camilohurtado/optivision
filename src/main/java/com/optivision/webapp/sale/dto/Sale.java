@@ -1,23 +1,27 @@
-package com.optivision.webapp.sales.dto;
+package com.optivision.webapp.sale.dto;
 
-import com.optivision.webapp.sales.entity.SaleEntity;
-import com.optivision.webapp.sales.entity.SaleItemEntity;
+import com.optivision.webapp.sale.entity.SaleEntity;
+import com.optivision.webapp.sale.entity.SaleItemEntity;
+import com.optivision.webapp.sale.enumerator.GeneralSaleEnum;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Sale {
     private long id;
     private String type; //ENUM
-    private List<SaleItem> items;
+    private Collection<SaleItem> items;
     private double total;
     private double paid;
     private LocalDate creationDate;
@@ -31,7 +35,7 @@ public class Sale {
      */
     public void calculateTotal(){
         this.total = this.items.stream()
-                .mapToDouble(value -> value.getPrice() + (value.getPrice() * 0.19))
+                .mapToDouble(value -> value.getPrice() + (value.getPrice() * GeneralSaleEnum.IVA.getIva()))
                 .sum();
     }
 
@@ -87,10 +91,12 @@ public class Sale {
     }
 
     public SaleEntity toEntity(){
-        List<SaleItemEntity> items =
-                this.items.stream()
-                .map(saleItem -> saleItem.toEntity())
-                .collect(Collectors.toList());
+        if(this.items != null){
+            List<SaleItemEntity> items =
+                    this.items.stream()
+                            .map(saleItem -> saleItem.toEntity())
+                            .collect(Collectors.toList());
+        }
 
         return SaleEntity.builder()
                 .abono(this.paid)
@@ -103,7 +109,7 @@ public class Sale {
                 .fechaActualizacion(Date.valueOf(LocalDate.now()))
                 .usuarioCreacion("ADMIN")
                 .usuarioActualizacion("ADMIN")
-                .items(items)
+                //.items(items)
                 .build();
     }
 }
