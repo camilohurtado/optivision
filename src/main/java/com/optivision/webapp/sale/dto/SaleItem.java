@@ -17,27 +17,12 @@ import java.util.List;
 public class SaleItem {
     private long saleId;
     private Product product;
-    private String name;
-    private ProductType type; //ENUM
-    private String desc;
-    private double price;
-    private int actualQuantity;
-    private int minimumQuantity;
-    private String reference;
-    private String make;
-    private Sale sale;
-    List<Product> products;
-
-    public boolean verifyExistence(){
-        if(this.actualQuantity > minimumQuantity + 3){
-            return true;
-        }
-        return false;
-    }
+    private ProductType type;
 
     public SaleItemEntity toEntity(){
         return SaleItemEntity.builder()
-                .idProducto(this.product.getProductoId())
+                //.idProducto(this.product.getProductoId())
+                .idProducto(1L)
                 .build();
     }
 }

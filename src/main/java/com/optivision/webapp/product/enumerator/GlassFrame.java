@@ -1,9 +1,9 @@
 package com.optivision.webapp.product.enumerator;
 
 public enum GlassFrame {
-    COMPLETO("Completo"),
-    TRES_PIEZAS("Tres piezas"),
-    AL_AIRE("Al aire");
+    COMPLETO("COMPLETO"),
+    TRES_PIEZAS("TRES PIEZAS"),
+    AL_AIRE("AL AIRE");
 
     String glassFrame;
 

@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Producto, Long> {
 
     public Producto getProductoByTipoProductoLikeAndTipoMarcoLikeAndColorLike(String marcoType, String tipoMarco, String color);
-    public Producto getProductoByTipoProductoLike(String tipoProductoType);
+    public List<Producto> getProductoByTipoProductoLike(String tipoProductoType);
     public Producto getProductoByLiquidoLikeAndMililitrosLiquidoIs(String liquido, int ml);
     public Producto getProductoByTipoProductoLikeAndMaterial(String estucheType, String estucheMaterial);
     public List<Producto> getAllByTipoProductoLikeAndMaterialLike(String tipoProductoType, String material);
