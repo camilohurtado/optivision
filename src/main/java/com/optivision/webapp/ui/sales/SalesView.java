@@ -5,25 +5,27 @@ import com.optivision.webapp.sale.dto.Sale;
 import com.optivision.webapp.sale.dto.SaleItem;
 import com.optivision.webapp.sale.service.SalesService;
 import com.optivision.webapp.ui.MainView;
-import com.vaadin.flow.component.HasValueAndElement;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
-import com.vaadin.flow.component.textfield.Autocomplete;
-import com.vaadin.flow.function.SerializableSupplier;
+import com.vaadin.flow.component.splitlayout.SplitLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import liquibase.pro.packaged.T;
 import org.vaadin.crudui.crud.CrudOperation;
 import org.vaadin.crudui.crud.impl.GridCrud;
-import com.vaadin.flow.component.textfield.TextField;
-import org.vaadin.crudui.form.CrudFormFactory;
-import org.vaadin.crudui.form.impl.field.provider.DefaultFieldProvider;
-import org.vaadin.crudui.form.impl.form.factory.DefaultCrudFormFactory;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Route(value = "sales", layout = MainView.class)
 @PageTitle("Ventas")
@@ -33,91 +35,67 @@ public class SalesView extends VerticalLayout {
 
     private final SalesService salesService;
     private final ProductService productService;
-    GridCrud<Sale> crud;
+    private final Grid<Sale> grid  = new Grid<Sale>(Sale.class);
+    private final TextField searchBar = new TextField();
+    private final Button createSale = new Button("Venta");
+
+    private final SaleForm saleForm;
 
     public SalesView(SalesService salesService, ProductService productService) {
         this.productService = productService;
         this.salesService = salesService;
 
-        crud = new GridCrud<>(Sale.class);
+        this.saleForm = new SaleForm(this, salesService, productService);
+        this.saleForm.formShow(null);
 
-        // You can initialise any data required for the connected UI components here.
-        crud.setFindAllOperation(() -> salesService.getSalesByDate(LocalDate.now()));
-        crud.getGrid().setPageSize(7);
+        //Filter text
+        searchBar.setPlaceholder("Buscar");
+        searchBar.setClearButtonVisible(true);
+        searchBar.setValueChangeMode(ValueChangeMode.EAGER);
+        searchBar.addValueChangeListener(e -> updateGridContent());
 
-        crud.getGrid().removeColumnByKey("id");
-        crud.getGrid().removeColumnByKey("state");
-        crud.getGrid().removeColumnByKey("type");
-        crud.getGrid().removeColumnByKey("creationDate");
-
-        crud.getCrudFormFactory().setDisabledProperties(CrudOperation.ADD, "total");
-        //crud.setClickRowToUpdate(true);
-        crud.setUpdateOperationVisible(true);
-        crud.setDeleteOperationVisible(true);
-        //crud.setAddOperation(sale -> salesService.doSale(sale));
-
-        crud.getCrudFormFactory().setDisabledProperties(CrudOperation.UPDATE, "creationDate", "id", "state", "type");
-        crud.getCrudFormFactory().setVisibleProperties(CrudOperation.ADD, "items", "paid", "patientName", "pending", "total");
-        crud.getCrudFormFactory().setFieldProvider("items", () -> {
-            return  new SalesItemsField(productService);
+        //Add new sale
+        createSale.addClickListener(buttonClickEvent -> {
+            grid.asSingleSelect().clear();
+            if(saleForm.isOpen()){
+                saleForm.formShow(null);
+                saleForm.setState(false);
+            }else {
+                saleForm.formShow(new Sale());
+                saleForm.setState(true);
+            }
         });
 
+        grid.setColumns("total", "paid", "patientName", "items", "state");
+        grid.setItemDetailsRenderer(new ComponentRenderer<>(sale -> {
+            VerticalLayout verticalLayout = new VerticalLayout();
+            List<SaleItem> items = (List<SaleItem>) sale.getItems();
+            items.stream()
+                    .map(saleItem -> "Producto: " + saleItem.getProduct().getNombreProducto() +
+                            " | Tipo: " + saleItem.getType() + " | Marca: " + saleItem.getProduct().getMarca())
+                    .peek(s -> verticalLayout.add(new Label(s)))
+                    .close();
+            return verticalLayout;
+        }));
+        grid.asSingleSelect().addValueChangeListener(event ->
+                saleForm.formShow(grid.asSingleSelect().getValue()));
 
-        add(crud);
-    }
-}
-
-@Route("")
-class SalesItemsField extends CustomField<SaleItem>{
+        HorizontalLayout toolbar = new HorizontalLayout(searchBar, createSale);
 
 
-    GridCrud<SaleItem> saleItemGridCrud;
-    HorizontalLayout horizontalLayout;
-    private final ProductService productService;
-
-    public SalesItemsField(ProductService productService){
-
-        this.productService = productService;
-        horizontalLayout = new HorizontalLayout();
-        horizontalLayout.setHeightFull();
-
-        //saleItemGridCrud = new CustomGridCrud<>(SaleItem.class);
-        saleItemGridCrud = new GridCrud<>(SaleItem.class);
-        saleItemGridCrud.getCrudFormFactory().setVisibleProperties(CrudOperation.ADD, "name", "type", "price");
-
-        SaleItem object = saleItemGridCrud.getCrudFormFactory().getNewInstanceSupplier().get();
-        object.getType();
-
-        saleItemGridCrud.getCrudFormFactory().setFieldProvider("name", () -> {
-            Select<String> select = new Select<>();
-            select.setItems("TEST");
-            return select;
-        });
-        saleItemGridCrud.getCrudFormFactory().setDisabledProperties("price");
-        horizontalLayout.add(saleItemGridCrud);
-        add(horizontalLayout);
-
+        //HorizontalLayout mainContent = new HorizontalLayout(grid, saleForm);
+        SplitLayout mainContent = new SplitLayout(grid, saleForm);
+        mainContent.setSizeFull();
+        setSizeFull();
+        add(toolbar, mainContent);
+        updateGridContent();
     }
 
-    @Override
-    protected SaleItem generateModelValue() {
-        return SaleItem.builder().build();
-    }
-
-    @Override
-    protected void setPresentationValue(SaleItem saleItem) {
-        return;
-    }
-}
-
-class CustomGridCrud<T> extends  GridCrud<T>{
-
-    protected TextField searchTextField = new TextField();
-
-
-    public CustomGridCrud(Class<T> domainType) {
-        super(domainType);
-        searchTextField.setPlaceholder("Ingrese nombre o tipo de producto");
-        this.crudLayout.addToolbarComponent(this.searchTextField);
+    /**
+     * Fill or refresh the sales table with data from
+     * the day itself
+     */
+    public void updateGridContent(){
+        grid.setItems(salesService.getSalesByDate(LocalDate.now()));
     }
 }

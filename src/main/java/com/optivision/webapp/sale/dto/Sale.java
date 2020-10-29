@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class Sale {
     private long id;
     private String type; //ENUM
-    private Collection<SaleItem> items;
+    private List<SaleItem> items = new ArrayList<>();
     private double total;
     private double paid;
     private LocalDate creationDate;
@@ -35,7 +35,8 @@ public class Sale {
      */
     public void calculateTotal(){
         this.total = this.items.stream()
-                .mapToDouble(value -> value.getPrice() + (value.getPrice() * GeneralSaleEnum.IVA.getIva()))
+                .map(saleItem -> saleItem.getProduct())
+                .mapToDouble(product -> product.getPrecioPublico() + (product.getPrecioPublico() * GeneralSaleEnum.IVA.getIva()))
                 .sum();
     }
 
@@ -68,9 +69,9 @@ public class Sale {
     public void addItemsToSale(SaleItem item){
         if(item != null){
             if(this.items != null){
-                item.setSale(this);
+                item.setSaleId(this.getId());
                 this.items.add(item);
-                this.calculateTotal();
+                //this.calculateTotal();
             }
         }
     }
@@ -109,7 +110,9 @@ public class Sale {
                 .fechaActualizacion(Date.valueOf(LocalDate.now()))
                 .usuarioCreacion("ADMIN")
                 .usuarioActualizacion("ADMIN")
-                //.items(items)
+                .items(items != null ? items.stream()
+                        .map(saleItem -> saleItem.toEntity())
+                        .collect(Collectors.toList()) : List.of())
                 .build();
     }
 }

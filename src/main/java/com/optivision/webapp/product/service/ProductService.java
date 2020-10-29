@@ -42,6 +42,14 @@ public class ProductService {
         }
     }
 
+    public List<Product> getProductsByType(ProductType productType){
+        return productoRepository
+                .getProductoByTipoProductoLike(productType.getValue())
+                .stream()
+                .map(producto -> producto.toDto())
+                .collect(Collectors.toList());
+    }
+
     public Product searchMarcoFromSale(String tipoMarco, String color) {
         if(Util.isValid(tipoMarco)){
             return productoRepository

@@ -87,7 +87,6 @@ public class Producto {
                 .costoXUnidad(this.costoXUnidad)
                 .fechaActualizacion(this.fechaActualizacion != null ? this.fechaActualizacion.toLocalDate() : null)
                 .fechaCreacion(this.fechaCreacion != null ? this.fechaCreacion.toLocalDate() : null)
-                .liquido(this.liquido)
                 .marca(this.marca)
                 .materialMarco(this.material != null ? GlassFrameMaterial.valueOf(this.material) : null)
                 .materialEstuche(this.material != null ? CaseMaterial.valueOf(this.material) : null)

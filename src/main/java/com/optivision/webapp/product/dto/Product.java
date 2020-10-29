@@ -1,6 +1,7 @@
 package com.optivision.webapp.product.dto;
 
 import com.optivision.webapp.product.enumerator.CaseMaterial;
+import com.optivision.webapp.product.enumerator.CaseStyle;
 import com.optivision.webapp.product.enumerator.GlassFrame;
 import com.optivision.webapp.product.enumerator.GlassFrameMaterial;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,8 @@ public class Product {
     private GlassFrame tipoMarco;
     private GlassFrameMaterial materialMarco;
     private CaseMaterial materialEstuche;
-    private String liquido;
+    private CaseStyle caseStyle;
+    private String dioptria;
     private String mililitrosLiquido;
     private Long cantidadActual;
     private Long cantidadMaxima;
@@ -36,4 +38,11 @@ public class Product {
     private String tipoProducto;
     private String usuarioCreacion;
     private String usuarioModificacion;
+
+    public boolean verifyExistence(){
+        if(this.cantidadActual > cantidadMinima + 3){
+            return true;
+        }
+        return false;
+    }
 }

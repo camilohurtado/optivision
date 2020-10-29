@@ -2,9 +2,10 @@ package com.optivision.webapp.product.enumerator;
 
 public enum ProductType {
     MARCO("MARCO"),
-    GAFAS_AUMENTO("GAFAS AUMENTO"),
+    AUMENTO("AUMENTO"),
     ESTUCHE("ESTUCHE"),
-    LENTES_DE_CONTACTO_COLORES("FRESHLOOK");
+    LENTES("FRESHLOOK"),
+    LIQUIDO("LIQUIDO");
 
     String type;
 
